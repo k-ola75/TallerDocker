@@ -8,7 +8,11 @@ implementación del tipo de dato Grafo. Su implementación tiene que:
 o matriz de incidencia) de acuerdo a los formatos presentados en el siguiente repositorio.
 
 *Presentar una interfaz gráfica de usuario que permita seleccionar uno más archivos con grafos.
+
 *Presentar de manera gráfica los grafos que se encuentran en los archivos seleccionados.
+
 *Presentar información sobre la cantidad de vértices, aristas y tipo de grafo que es presentado en la interfaz
+
 *Permitir transformar de una representación a otra, es decir de lista de adyacencia a una matriz de incidencia, etc.
+
 *Ser alojado en un repositorio online se recomienda github, gitlab o bitbucket
