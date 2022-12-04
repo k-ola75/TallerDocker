@@ -4,7 +4,7 @@ Created on Sat Dec  3 19:36:26 2022
 
 @author: kolay
 """
-from archivos import *
+from LectorDeGrafos import *
 from Grafo import *
 import numpy as np
 
