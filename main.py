@@ -18,7 +18,10 @@ if __name__ == '__main__':
     print_hi('PyCharm')
     # print(dir(Button))
     # window = Tk()
-    # app = GUI(window)
+    app = App()
     # window.mainloop()
 
-    window
+
+#C:\Users\Sebas\Desktop\test\
+#GN-MA-0001-004.txt
+
