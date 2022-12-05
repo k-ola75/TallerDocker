@@ -6,13 +6,17 @@ class LectorGrafos:
         self.tipoGrafo = "" #Directed (D), Non-Directed (N) or Weighted (P)
         self.representacionGrafo = "" #adjacency matrix (MA), adjacency list (LA) or incidence matrix (MI)
         self.__nombredelArchivo = ""
+        self.path=""
     
     def info_generalGrafo(self, infografo: str):
         self.tipoGrafo = infografo[1]
         self.representacionGrafo = infografo[2] + infografo[3]
     
     def SetnombreArchivo(self, nombre:str):
-        self.__nombredelArchivo = nombre    
+        self.__nombredelArchivo = nombre
+
+    def set_path(self,path: str):
+        self.path = path
     
     def guardarrepresentacionGrafo(self, tipografo: str, fila: str):
         if self.representacionGrafo == "LA":
@@ -41,7 +45,7 @@ class LectorGrafos:
             
             
     def leerGrafo(self):
-        with open("grafos/" + self.__nombredelArchivo , 'r') as fichero:
+        with open(self.path + self.__nombredelArchivo , 'r') as fichero:
             linea = fichero.readline()
             
             while linea.find("#") != -1:
@@ -57,9 +61,9 @@ class LectorGrafos:
                 linea = fichero.readline()
         
 #cantidad de vértices, aristas y tipo de grafo / PRUEBAS
-lectorGraf = LectorGrafos()
-lectorGraf.SetnombreArchivo("GN-MI-0004-001.txt")
-lectorGraf.leerGrafo()
+#lectorGraf = LectorGrafos()
+#lectorGraf.SetnombreArchivo("GN-MI-0004-001.txt")
+#lectorGraf.leerGrafo()
 
 
 #MATRIZ DE ADYACENCIA+/INCIDENCIA EJEMPLO
