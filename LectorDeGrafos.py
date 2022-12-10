@@ -1,73 +1,79 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec  9 19:14:54 2022
+
+@author: kolay
+"""
+
+import numpy as np
+# =============================================================================
+# Se asume que, para todas las representaciones, los vértices inician en 0
+# =============================================================================
+
 class LectorGrafos:
-
     def __init__(self) -> None:
-        self.lista_adyacencia = []
-        self.vertices = []
-        self.tipoGrafo = "" #Directed (D), Non-Directed (N) or Weighted (P)
-        self.representacionGrafo = "" #adjacency matrix (MA), adjacency list (LA) or incidence matrix (MI)
-        self.__nombredelArchivo = ""
-        self.path=""
+        self.datos = None
+        self.datos_procesados = None
+        self.tipo_grafo = "" #Directed (D), Non-Directed (N) or Weighted (P)
+        self.representacion_grafo = "" #adjacency matrix (MA), adjacency list (LA) or incidence matrix (MI)        
     
-    def info_generalGrafo(self, infografo: str):
-        self.tipoGrafo = infografo[1]
-        self.representacionGrafo = infografo[2] + infografo[3]
-    
-    def SetnombreArchivo(self, nombre:str):
-        self.__nombredelArchivo = nombre
-
-    def set_path(self,path: str):
-        self.path = path
-    
-    def guardarrepresentacionGrafo(self, tipografo: str, fila: str):
-        if self.representacionGrafo == "LA":
-            lista = []
-            for i in fila:
-                if (i != " ") & (i != "\n") & (i != ":"):
-                    lista.append(i)
-            self.vertices.append(lista[0])
-            self.lista_adyacencia.append(lista)
-
-        elif self.representacionGrafo == "MA":
-            lista = []
-            for i in fila:
-                if (i != " ") & (i != "\n"):
-                    lista.append(i)
-            self.lista_adyacencia.append(lista)
-            #lista_adyacencia[0] es la cantidad y los vertices de la matriz
-
-        elif self.representacionGrafo == "MI":
-            lista = []
-            for i in fila:
-                if (i != " ") & (i != "\n") & (i != ":"):
-                    lista.append(i)
-            self.vertices.append(lista[0])
-            self.lista_adyacencia.append(lista)
-            
-            
-    def leerGrafo(self):
-        with open(self.path + self.__nombredelArchivo , 'r') as fichero:
-            linea = fichero.readline()
-            
-            while linea.find("#") != -1:
-                linea = fichero.readline()
-            #ignora las lineas comentadas
-            
-            self.info_generalGrafo(linea)
-            
-            #inicia la lectura del grafo
-            linea = fichero.readline()
-            while linea != '':
-                self.guardarrepresentacionGrafo(self.representacionGrafo, linea)
-                linea = fichero.readline()
+    def leer_archivo(self, nombre_archivo:str, raw_data:list):
+        """
+        Lee archivo que almacene información de un grafo (JAPeTo) e inicializa características de dicho grafo
+        nombre_archivo : str
+        raw_data : list, lista que almacenará datos leídos
+        Returns: None.
+        """
+        with open (nombre_archivo + ".txt") as archivo:
+            for line in archivo.readlines():
+                if not line.startswith('#'):
+                    raw_data.append(line.split())
         
-#cantidad de vértices, aristas y tipo de grafo / PRUEBAS
-#lectorGraf = LectorGrafos()
-#lectorGraf.SetnombreArchivo("GN-MI-0004-001.txt")
-#lectorGraf.leerGrafo()
-
-
-#MATRIZ DE ADYACENCIA+/INCIDENCIA EJEMPLO
-#print(len (lectorGraf.lista_adyacencia[0]))# numero de vertices
-#print(lectorGraf.lista_adyacencia)
-#for i in range(len(lectorGraf.lista_adyacencia)):
-#    print(lectorGraf.lista_adyacencia[i])
+        self.datos = raw_data
+        self.set_tipo_grafo(self.datos)
+        self.set_representation_grafo(self.datos)
+        self.set_datos_grafo(self.datos)
+                    
+    def set_tipo_grafo(self, raw_data:list):
+        """
+        raw_data : list, lista que almacena datos sin precesar de un grafo
+        Returns: None.
+        """
+        self.tipo_grafo = str(raw_data[0][0][1])
+        
+    def set_representation_grafo(self, raw_data:list):
+        """
+        raw_data : list, lista que almacena datos sin precesar de un grafo
+        Returns: None.
+        """
+        self.representacion_grafo = str(raw_data[0][0][2:])
+     
+    def set_datos_grafo(self, raw_data):
+        """
+        raw_data : list, lista que almacena datos sin precesar de un grafo
+        Returns: None.
+        """
+        if (self.representacion_grafo == "MA" or self.representacion_grafo == "MI" ):
+             np_arr = np.array(raw_data[1:], dtype=(float))
+             self.datos_procesados = np_arr
+         
+        elif (self.representacion_grafo == "LA"):
+             self.datos_procesados = {}
+             try:
+                 vertice = 0
+                 for adyacentes in raw_data[1:]:
+                     adyacentes_int = [eval(i) for i in adyacentes]
+                     self.datos_procesados[vertice] = adyacentes_int
+                     vertice += 1
+             except NameError:
+                print("Lista de adyacencia con letras")
+           
+    
+    def to_matriz_adyacencia(self, representacion_grafo, datos_procesados):
+      pass
+  
+    def to_lista_adyacencia(self, representacion_grafo, datos_procesados):
+      pass
+  
+    def to_matriz_incidencia(self, representacion_grafo, datos_procesados):
+      pass
