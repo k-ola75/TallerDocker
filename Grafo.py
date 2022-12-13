@@ -116,6 +116,7 @@ class Grafo:
         return self.tipo
     
     def to_matriz_adyacencia(self):
+      try:
         if (self.representacion != "MA"):
           col = row = len(self.vertices.keys())
           self.data_convertida = np.zeros((row, col))
@@ -124,8 +125,11 @@ class Grafo:
           return self.data_convertida
         else:
           return self.data
+      except IndexError:
+        print("Oops, error")
     
     def to_lista_adyacencia(self):
+      try:
         if (self.representacion != "LA"):
           self.data_convertida = {}
           for arista in self.aristas.keys():
@@ -136,8 +140,11 @@ class Grafo:
           return self.data_convertida
         else:
           return self.data
+      except IndexError:
+        print("Oops: Error")
     
     def to_matriz_incidencia(self):
+      try:
         if(self.representacion != "MI"):
           row = len(self.vertices.keys())
           col = int(len(self.aristas.keys())/2)
@@ -162,7 +169,8 @@ class Grafo:
           return self.data_convertida
         else:
           return self.data
-
+      except IndexError:
+        print("Oops error")
 
     def dibujar_grafo(self, canvas):
         screen = turtle.RawTurtle(canvas)
