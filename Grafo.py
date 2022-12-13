@@ -48,7 +48,7 @@ class Grafo:
             nueva_arista = Arista(cola, cabeza)
             self.aristas[(cola, cabeza)] = nueva_arista
             #self.aristas.append(nueva_arista)
-            print("añadido aristta", cola, cabeza)
+            print("añadido arista", cola, cabeza)
             if (self.tipo == "P"):
                 nueva_arista.peso = peso
 
@@ -141,7 +141,7 @@ class Grafo:
         else:
           return self.data
       except IndexError:
-        print("Oops: Error")
+        print("Oops, Error")
     
     def to_matriz_incidencia(self):
       try:
@@ -170,9 +170,18 @@ class Grafo:
         else:
           return self.data
       except IndexError:
-        print("Oops error")
+        print("Oops, error")
 
-    def dibujar_grafo(self, canvas):
+
+    def get_data(self):
+      if (self.representacion == "LA"):
+        items_data = self.data.items()
+        temp = np.array(list(items_data), dtype = object)
+        return temp
+      else:
+        return self.data
+
+    def dibujar_grafo(self):
         screen = turtle.RawTurtle(canvas)
         screen.speed(10)
         for vertice in self.vertices:
@@ -193,6 +202,7 @@ class Grafo:
             screen.write(vertex.etiqueta,align="center",font=("Arial",12,"bold"))
             
         for arista in self.aristas.values():
+            turtle.width(2)
             if(arista.cola != arista.cabeza):
                 x1 = float(self.vertices[arista.cola].x)
                 y1 = float(self.vertices[arista.cola].y)
@@ -201,9 +211,20 @@ class Grafo:
                 print(x1, y1, x2, y2)
                 
                 screen.penup()
-                screen.goto(x1,y1)
+                screen.goto(x1,y1-10)
                 screen.pendown()
-                screen.goto(x2,y2)
+                screen.setheading(screen.towards(x2, y2))
+                screen.goto(x2,y2-10)
+
+                if (self.tipo == "D"):
+                  screen.width(3)
+                  screen.left(45)
+                  screen.backward(20)
+                  screen.forward(20)
+                  screen.right(90)
+                  screen.backward(20)
+                
+                
             else:
                 x1 = float(self.vertices[arista.cola].x) 
                 y1 = float(self.vertices[arista.cola].y)
@@ -219,6 +240,8 @@ class Grafo:
                 screen.penup()
                 screen.goto(x,y)
                 screen.write(str(arista.peso),align="center",font=("Arial",12,"normal"))
+
         screen.mainloop()
         screen.done()
         sys.exit(1)
+
