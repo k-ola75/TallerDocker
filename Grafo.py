@@ -181,7 +181,7 @@ class Grafo:
       else:
         return self.data
 
-    def dibujar_grafo(self):
+    def dibujar_grafo(self, canvas):
         screen = turtle.RawTurtle(canvas)
         screen.speed(10)
         for vertice in self.vertices:
