@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec  9 19:31:22 2022
-
-@author: kolay
-"""
 import sys
 import random
 import turtle
+import numpy as np
 
 class Vertice:
     def __init__(self, id_vertice, x ,y ,etiqueta):
@@ -31,11 +26,12 @@ class Grafo:
         if (aristas != None):
             self.aristas = aristas
         else:
-            self.aristas = []
+            self.aristas = {}
 
         self.data = data
         self.tipo = tipo
         self.representacion = representacion
+        self.data_convertida = None
         self.set_vertices()
         self.set_aristas()
     
@@ -50,7 +46,8 @@ class Grafo:
     
     def add_arista(self, cola, cabeza, peso = None):
             nueva_arista = Arista(cola, cabeza)
-            self.aristas.append(nueva_arista)
+            self.aristas[(cola, cabeza)] = nueva_arista
+            #self.aristas.append(nueva_arista)
             print("añadido aristta", cola, cabeza)
             if (self.tipo == "P"):
                 nueva_arista.peso = peso
@@ -99,26 +96,56 @@ class Grafo:
               if (cola != None and cabeza != None):
                 self.add_arista(cola, cabeza, peso)
               
-    def dibujar_grafo(self):
-        turtle.speed(10)
+    
+    def get_vertices_id(self):
+        return self.vertices.keys()
+    
+    def get_aristas(self):
+        return self.aristas.keys()
+    
+    def get_representacion(self):
+        return self.representacion
+    
+    def get_tipo(self):
+        return self.tipo
+    
+    def to_matriz_adyacencia(self):
+        col = row = len(self.vertices.keys())
+        self.data_convertida = np.zeros((col, row))
+        for arista in self.aristas.keys():
+            self.data_convertida[arista] = 1
+        return self.data_convertida
+    
+    def to_lista_adyacencia(self):
+        self.data_convertida = {}
+        
+        return self.data_convertida
+    
+    def to_matriz_incidencia(self):
+        
+        return self.data_convertida
+            
+    def dibujar_grafo(self, canvas):
+        screen = turtle.RawTurtle(canvas)
+        screen.speed(10)
         for vertice in self.vertices:
             vertex = self.vertices[vertice]
             x = vertex.x
             y = vertex.y
             print(vertex, "x: ", x,"y: ", y)
-            turtle.penup()
-            turtle.goto(x,y-20)
+            screen.penup()
+            screen.goto(x,y-20)
             
-            turtle.pendown()
-            turtle.fillcolor("blue")
-            turtle.begin_fill()
-            turtle.circle(10)
-            turtle.end_fill()
-            turtle.penup()
-            turtle.goto(x+2,y+11)
-            turtle.write(vertex.etiqueta,align="center",font=("Arial",12,"bold"))
+            screen.pendown()
+            screen.fillcolor("blue")
+            screen.begin_fill()
+            screen.circle(10)
+            screen.end_fill()
+            screen.penup()
+            screen.goto(x+2,y+11)
+            screen.write(vertex.etiqueta,align="center",font=("Arial",12,"bold"))
             
-        for arista in self.aristas:
+        for arista in self.aristas.values():
             if(arista.cola != arista.cabeza):
                 x1 = float(self.vertices[arista.cola].x)
                 y1 = float(self.vertices[arista.cola].y)
@@ -126,25 +153,25 @@ class Grafo:
                 y2 = float(self.vertices[arista.cabeza].y)
                 print(x1, y1, x2, y2)
                 
-                turtle.penup()
-                turtle.goto(x1,y1)
-                turtle.pendown()
-                turtle.goto(x2,y2)
+                screen.penup()
+                screen.goto(x1,y1)
+                screen.pendown()
+                screen.goto(x2,y2)
             else:
                 x1 = float(self.vertices[arista.cola].x) 
                 y1 = float(self.vertices[arista.cola].y)
                 print(x1, y1)
-                turtle.penup()
-                turtle.goto(x1,y1 - 20)
-                turtle.pendown()
-                turtle.circle(15, 340)
+                screen.penup()
+                screen.goto(x1,y1 - 20)
+                screen.pendown()
+                screen.circle(15, 340)
                 
             if self. tipo == "P" and arista.peso != 0.0:       
                 x = (x1 + x2) / 2
                 y = (y1 + y2) / 2
-                turtle.penup()
-                turtle.goto(x,y)
-                turtle.write(str(arista.peso),align="center",font=("Arial",12,"normal"))
-        turtle.mainloop()
-        turtle.done()
+                screen.penup()
+                screen.goto(x,y)
+                screen.write(str(arista.peso),align="center",font=("Arial",12,"normal"))
+        screen.mainloop()
+        screen.done()
         sys.exit(1)

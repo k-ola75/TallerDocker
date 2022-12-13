@@ -1,7 +1,4 @@
 import numpy as np
-# =============================================================================
-# Se asume que, para todas las representaciones, los vértices inician en 0
-# =============================================================================
 
 class LectorGrafos:
     def __init__(self) -> None:
@@ -60,13 +57,3 @@ class LectorGrafos:
                      vertice += 1
              except NameError:
                 print("Lista de adyacencia con letras")
-           
-    
-    def to_matriz_adyacencia(self, representacion_grafo, datos_procesados):
-      pass
-  
-    def to_lista_adyacencia(self, representacion_grafo, datos_procesados):
-      pass
-  
-    def to_matriz_incidencia(self, representacion_grafo, datos_procesados):
-      pass
