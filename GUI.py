@@ -25,7 +25,7 @@ class App:
         self.root = tk.Tk()
         self.root.resizable(False, False)
         self.root.title("graph converter")
-        self.root.iconbitmap("grabar.ico")
+        #self.root.iconbitmap("grabar.ico")
         self.add_fileL = ttk.LabelFrame(self.root, text="Add File:")
         self.add_fileL.grid(column=0, row=0, padx=5, pady=10)
         self.add_file()
@@ -66,7 +66,7 @@ class App:
     def sub_page(self):
         self.sub_page_matrix = tk.Tk()
         self.sub_page_matrix.title("Graph Representation")
-        self.sub_page_matrix.iconbitmap("grabar.ico")
+        #self.sub_page_matrix.iconbitmap("grabar.ico")
         self.InformationL = ttk.Labelframe(self.sub_page_matrix, text="Grafo Information")
         self.InformationL.grid(column=0, row=0, pady=10)
         self.information()
@@ -85,13 +85,10 @@ class App:
 
 
     def send_date(self):
-        self.search(self.PathE.get())
         lec = LectorGrafos()
-        lec.SetnombreArchivo(self.NameFileE.get())
-        lec.set_path(self.PathE.get())
-        lec.leerGrafo()
-        print(lec.lista_adyacencia)
-        os.chdir(self.homeP)
+        raw_data_ = []
+        lec.leer_archivo(self.NameFileE.get(), raw_data_)
+        print(lec.datos)
         self.sub_page()
 
 

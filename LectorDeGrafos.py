@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec  9 19:14:54 2022
-
-@author: kolay
-"""
-
 import numpy as np
 # =============================================================================
 # Se asume que, para todas las representaciones, los vértices inician en 0
@@ -24,7 +17,7 @@ class LectorGrafos:
         raw_data : list, lista que almacenará datos leídos
         Returns: None.
         """
-        with open (nombre_archivo + ".txt") as archivo:
+        with open (nombre_archivo, 'r') as archivo:
             for line in archivo.readlines():
                 if not line.startswith('#'):
                     raw_data.append(line.split())
