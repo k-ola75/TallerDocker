@@ -111,20 +111,40 @@ class Grafo:
     
     def to_matriz_adyacencia(self):
         col = row = len(self.vertices.keys())
-        self.data_convertida = np.zeros((col, row))
+        self.data_convertida = np.zeros((row, col))
         for arista in self.aristas.keys():
             self.data_convertida[arista] = 1
         return self.data_convertida
     
     def to_lista_adyacencia(self):
         self.data_convertida = {}
-        
+        for arista in self.aristas.keys():
+            if (arista[0] not in self.data_convertida):
+                self.data_convertida[arista[0]] = [arista[1]]
+            else:
+                self.data_convertida[arista[0]].append(arista[1])
         return self.data_convertida
     
     def to_matriz_incidencia(self):
-        
+        row = len(self.vertices.keys())
+        col = int(len(self.aristas.keys())/2)
+        self.data_convertida = np.zeros((row, col))
+        contador = 0
+        lista_temp = []
+        for arista in self.aristas.keys():
+            lista_temp.append(arista)
+            if (arista[0] == arista[1]):
+                temp_arr = np.zeros((row, 1))
+                temp_arr[arista[0]] = 2
+                self.data_convertida = np.append(self.data_convertida, temp_arr, axis=1)
+                print(arista[0], arista[1])
+            elif ((arista[1], arista[0]) not in lista_temp):
+                self.data_convertida[(arista[0], contador)] = 1
+                self.data_convertida[(arista[1], contador)] = 1
+                contador += 1
         return self.data_convertida
-            
+
+
     def dibujar_grafo(self, canvas):
         screen = turtle.RawTurtle(canvas)
         screen.speed(10)
