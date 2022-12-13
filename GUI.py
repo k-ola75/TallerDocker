@@ -7,6 +7,11 @@ from LectorDeGrafos import *
 class App:
 
     def __init__(self):
+        self.typeGrafoL = None
+        self.aristasL = None
+        self.changeRL = None
+        self.VerticesL = None
+        self.InformationL = None
         self.homeP = None
         self.sub_page_matrix = None
         self.ListAD_B = None
@@ -26,7 +31,7 @@ class App:
         self.add_file()
         self.optionsL = ttk.LabelFrame(self.root, text="Options")
         self.optionsL.grid(column=0, row=1, padx=5, pady=10)
-        self.options()
+        self.options(self.optionsL)
         self.root.mainloop()
 
     def add_file(self):
@@ -41,12 +46,12 @@ class App:
         AddB = ttk.Button(self.add_fileL, text="Add", command=self.send_date)
         AddB.grid(column=1, row=2, padx=4, pady=4)
 
-    def options(self):
-        MatrixAD_B = ttk.Checkbutton(self.optionsL, text="Matriz de adyacencia", onvalue=1, offvalue=0)
+    def options(self,window):
+        MatrixAD_B = ttk.Checkbutton(window, text="Matriz de adyacencia", onvalue=1, offvalue=0)
         MatrixAD_B.grid(column=0, row=0, padx=4, pady=4)
-        MatrixID_B = ttk.Checkbutton(self.optionsL, text="Matriz de incidence", onvalue=1, offvalue=0)
+        MatrixID_B = ttk.Checkbutton(window, text="Matriz de incidence", onvalue=1, offvalue=0)
         MatrixID_B.grid(column=1, row=0, padx=4, pady=4)
-        ListAD_B = ttk.Checkbutton(self.optionsL, text="Lista de adyacencia", onvalue=1, offvalue=0)
+        ListAD_B = ttk.Checkbutton(window, text="Lista de adyacencia", onvalue=1, offvalue=0)
         ListAD_B.grid(column=2, row=0, padx=4, pady=4)
 
     def search(self, path):
@@ -62,7 +67,21 @@ class App:
         self.sub_page_matrix = tk.Tk()
         self.sub_page_matrix.title("Graph Representation")
         self.sub_page_matrix.iconbitmap("grabar.ico")
+        self.InformationL = ttk.Labelframe(self.sub_page_matrix, text="Grafo Information")
+        self.InformationL.grid(column=0, row=0, pady=10)
+        self.information()
+        self.changeRL = ttk.Labelframe(self.sub_page_matrix, text="change type representation")
+        self.changeRL.grid(column=0, row=1, padx=5, pady=10)
+        self.options(self.changeRL)
         self.sub_page_matrix.mainloop()
+
+    def information(self):
+        self.VerticesL = ttk.Label(self.InformationL, text="Vertices: ")
+        self.VerticesL.grid(column=0, row=0, padx=5, pady=5)
+        self.aristasL = ttk.Label(self.InformationL, text="edges: ")
+        self.aristasL.grid(column=0, row=1, padx=5, pady=5)
+        self.typeGrafoL = ttk.Label(self.InformationL,text="type grafo")
+        self.typeGrafoL.grid(column=0,row=2,padx=5, pady=5)
 
 
     def send_date(self):
