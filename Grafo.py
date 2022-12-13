@@ -98,10 +98,16 @@ class Grafo:
               
     
     def get_vertices_id(self):
-        return self.vertices.keys()
-    
+        temp = []
+        for vertice in self.vertices.keys():
+            temp.append(vertice)
+        return temp
+  
     def get_aristas(self):
-        return self.aristas.keys()
+        temp = []
+        for arista in self.aristas.keys():
+            temp.append(arista)
+        return temp
     
     def get_representacion(self):
         return self.representacion
