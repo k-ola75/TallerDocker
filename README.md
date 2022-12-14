@@ -2,9 +2,9 @@
 Este programa lee archivos de tipo texto que contengan información de un grafo en formato JAPeTo.
 
 ##Instrucciones de uso:
-Todo archivo que se desee leer debe encontrarse alojado en la carpeta "grafos".
+Todo archivo por leer debe encontrarse alojado en la carpeta "grafos".
 Para iniciar el programa ejecutar el archivo "main".
-En la ventana "graph converter" introducir el nombre del archivo siguiendo el siguiente formato: "GN-LA-0002-001.txt"
+En la ventana "graph converter" introducir el nombre del archivo siguiendo el formato: "GN-LA-0002-001.txt"
 Presionar el boton "add".
 
 
