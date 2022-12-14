@@ -14,7 +14,7 @@ class LectorGrafos:
         raw_data : list, lista que almacenará datos leídos
         Returns: None.
         """
-        with open ("grafos/" + nombre_archivo) as archivo:
+        with open (nombre_archivo) as archivo:
             for line in archivo.readlines():
                 if not line.startswith('#'):
                     raw_data.append(line.split())
