@@ -56,4 +56,11 @@ class LectorGrafos:
                      self.datos_procesados[vertice] = adyacentes_int
                      vertice += 1
              except NameError:
-                print("Lista de adyacencia con letras")
+                  vertice = 65
+                  for adyacentes in raw_data[1:]:
+                    temp = []
+                    for vertex in adyacentes:
+                      temp.append(ord(vertex))
+                    self.datos_procesados[vertice] = temp
+                    vertice += 1       
+                  print("Lista de adyacencia con letras")
