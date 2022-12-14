@@ -182,6 +182,7 @@ class Grafo:
         return self.data
 
     def dibujar_grafo(self):
+      try:
         #screen = turtle.RawTurtle(canvas)
         turtle.speed(100)
         for vertice in self.vertices:
@@ -241,9 +242,9 @@ class Grafo:
                 turtle.goto(x,y)
                 turtle.write(str(arista.peso),align="center",font=("Arial",12,"normal"))
 
+      except Exception as e:
+        print("Grafo:GD-LA-0003-003 ó GN-LA-0002-003")
+
         #turtle.mainloop()
         #turtle.done()
         #sys.exit(1)
-
-
-
