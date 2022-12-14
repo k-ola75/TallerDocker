@@ -126,6 +126,7 @@ class Grafo:
         else:
           return self.data
       except IndexError:
+        return "Oops, Error"
         print("Oops, error")
     
     def to_lista_adyacencia(self):
@@ -141,6 +142,7 @@ class Grafo:
         else:
           return self.data
       except IndexError:
+        return "Oops, Error"
         print("Oops, Error")
     
     def to_matriz_incidencia(self):
@@ -148,9 +150,7 @@ class Grafo:
         if(self.representacion != "MI"):
           row = len(self.vertices.keys())
           col = int(len(self.aristas.keys())/2)
-          print(col)
           self.data_convertida = np.zeros((row, col))
-          print(self.data_convertida)
           contador = 0
           lista_temp = []
           for arista in self.aristas.keys():
@@ -160,8 +160,6 @@ class Grafo:
                   temp_arr[arista[0]] = 2
                   print(temp_arr)
                   self.data_convertida = np.append(self.data_convertida, temp_arr, axis=1)
-                  print(self.data_convertida)
-                  print(arista[0], arista[1])
               elif ((arista[1], arista[0]) not in lista_temp):
                   self.data_convertida[(arista[0], contador)] = 1
                   self.data_convertida[(arista[1], contador)] = 1
@@ -170,6 +168,7 @@ class Grafo:
         else:
           return self.data
       except IndexError:
+        return "Oops, Error"
         print("Oops, error")
 
 
@@ -244,7 +243,3 @@ class Grafo:
 
       except Exception as e:
         print("Grafo:GD-LA-0003-003 ó GN-LA-0002-003")
-
-        #turtle.mainloop()
-        #turtle.done()
-        #sys.exit(1)
