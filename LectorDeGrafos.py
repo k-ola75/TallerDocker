@@ -1,8 +1,8 @@
 import numpy as np
 import _mssql 
 
-
 class LectorGrafos:
+    
     def __init__(self) -> None:
         self.datos = None
         self.datos_procesados = None
@@ -18,13 +18,13 @@ class LectorGrafos:
         """
         
         #agregar aqui las credenciales de la base de datos cuando esta este creada
-        server = 'SERVER_NAME'
-        user = 'USER_NAME'
-        password = '<PASSWORD>'
-        database = 'MY_DATABASE'
+        server = 'localhost'
+        user = 'root'
+        password = 'admin123'
+        database = 'grafos'
         conectDatabase = _mssql.connect(server, user, password, database)
         
-        conectDatabase.execute_query('SELECT contenidoGrafo FROM grafos WHERE tituloGrafo=' + nombre_archivo)
+        conectDatabase.execute_query('SELECT contenidoGrafo FROM grafos WHERE tituloGrafo= ' + nombre_archivo)
         
         for line in conectDatabase:
             if not line.startswith('#'):
