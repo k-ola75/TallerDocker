@@ -1,5 +1,5 @@
 import numpy as np
-import _mssql 
+import pymssql
 
 class LectorGrafos:
     
@@ -22,11 +22,12 @@ class LectorGrafos:
         user = 'root'
         password = 'admin123'
         database = 'grafos'
-        conectDatabase = _mssql.connect(server, user, password, database)
+        conn = pymssql.connect(server, user, password, database)
+        cursor = conn.cursor()
+        print("hasta aqui fuynciona sin la base de datos.")
+        cursor.execute('SELECT contenidoGrafo FROM grafos WHERE tituloGrafo= ' + nombre_archivo)
         
-        conectDatabase.execute_query('SELECT contenidoGrafo FROM grafos WHERE tituloGrafo= ' + nombre_archivo)
-        
-        for line in conectDatabase:
+        for line in cursor:
             if not line.startswith('#'):
                 raw_data.append(line.split())
         
@@ -35,7 +36,7 @@ class LectorGrafos:
         self.set_representation_grafo(self.datos)
         self.set_datos_grafo(self.datos)
         
-        conectDatabase.close()
+        conn.close()
                     
     def set_tipo_grafo(self, raw_data:list):
         """
