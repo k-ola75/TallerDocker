@@ -1,0 +1,21 @@
+FROM ubuntu
+
+WORKDIR /app
+
+
+RUN apt-get update 
+RUN apt-get install -y python3 python3-pip tk-dev
+
+RUN pip3 install numpy tkinter
+
+CMD python3 -c "import tkinter; import numpy; print('Python, Numpy y Tkinter instalados correctamente')"
+
+
+COPY grafos /app/archivosAPP/grafos/
+COPY main.py /app/archivosAPP/
+COPY Grafo.py /app/archivosAPP/
+COPY LectorDeGrafos.py /app/archivosAPP/
+COPY GUI.py /app/archivosAPP/
+
+WORKDIR /app/archivosAPP/
+RUN python3 main.py
