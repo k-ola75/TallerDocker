@@ -1,8 +1,6 @@
 import numpy as np
-import _mssql 
 
 class LectorGrafos:
-    
     def __init__(self) -> None:
         self.datos = None
         self.datos_procesados = None
@@ -16,26 +14,15 @@ class LectorGrafos:
         raw_data : list, lista que almacenará datos leídos
         Returns: None.
         """
-        
-        #agregar aqui las credenciales de la base de datos cuando esta este creada
-        server = 'localhost'
-        user = 'root'
-        password = 'admin123'
-        database = 'grafos'
-        conectDatabase = _mssql.connect(server, user, password, database)
-        
-        conectDatabase.execute_query('SELECT contenidoGrafo FROM grafos WHERE tituloGrafo= ' + nombre_archivo)
-        
-        for line in conectDatabase:
-            if not line.startswith('#'):
-                raw_data.append(line.split())
+        with open ("grafos/" + nombre_archivo) as archivo:
+            for line in archivo.readlines():
+                if not line.startswith('#'):
+                    raw_data.append(line.split())
         
         self.datos = raw_data
         self.set_tipo_grafo(self.datos)
         self.set_representation_grafo(self.datos)
         self.set_datos_grafo(self.datos)
-        
-        conectDatabase.close()
                     
     def set_tipo_grafo(self, raw_data:list):
         """
