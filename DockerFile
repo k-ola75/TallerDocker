@@ -1,20 +1,34 @@
-FROM ubuntu
+FROM ubuntu:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Actualiza los paquetes y actualiza el sistema
+RUN apt-get update && apt-get install -y
+
+ENV DISPLAY=host.docker.internal:0.0
+# Mount the X11 Unix socket to the container
+
+# Instala los paquetes necesarios para Python, Numpy y Tkinter
+RUN apt-get install -y python3 python3-pip python3-tk
+RUN pip3 install numpy
+
+# Configura el entorno para que utilice Python 3 como versión predeterminada
+RUN ln -sfn /usr/bin/python3 /usr/bin/python
+RUN ln -sfn /usr/bin/pip3 /usr/bin/pip
 
 WORKDIR /app
+VOLUME ["/tmp/.X11-unix"]
 
-RUN apt-get update && apt-get install -y python3-pip
-RUN apt-get install python3-tk
+COPY grafos /app/grafos/
+COPY main.py /app/
+COPY Grafo.py /app/
+COPY LectorDeGrafos.py /app/
+COPY GUI.py /app/
 
 
-RUN pip3 install numpy
-RUN pip install tkinter
+CMD ["python", "/app/main.py"]
 
 
-COPY grafos /archivosAPP/grafos/
-COPY main.py /archivosAPP/
-COPY Grafo.py /archivosAPP/
-COPY LectorDeGrafos.py /archivosAPP/
-COPY GUI.py /archivosAPP/
 
-WORKDIR /app/archivosAPP/
-RUN python3 main.py
+
+
