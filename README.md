@@ -7,8 +7,7 @@ En la ventana "graph converter" introducir el nombre del archivo siguiendo el fo
 Presionar el boton "add".
 
 
-##Actividad No. 2:
-
+##Características
 *Lee archivos en texto plano que contengan grafos en cualquiera de sus representaciones (lista de adyacencia, matriz de adyacencia
 o matriz de incidencia) de acuerdo a los formatos presentados en el repositorio.
 
